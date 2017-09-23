@@ -1,18 +1,46 @@
 package com.ezio.domain;
 
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import java.io.Serializable;
 
 /**
  * Created by Ezio on 2017/9/23.
  */
+@Document(indexName = "comment", type = "form_comment")
 public class Comment implements Serializable {
 	private Integer	id;
-	private String	songId;
+
+	public String getSong_id() {
+		return song_id;
+	}
+
+	public void setSong_id(String song_id) {
+		this.song_id = song_id;
+	}
+
+	public Integer getLiked_count() {
+		return liked_count;
+	}
+
+	public void setLiked_count(Integer liked_count) {
+		this.liked_count = liked_count;
+	}
+
+	public int getComment_id() {
+		return comment_id;
+	}
+
+	public void setComment_id(int comment_id) {
+		this.comment_id = comment_id;
+	}
+
+	private String	song_id;
 	private String	nickname;
-	private Integer	likedCount;
+	private Integer	liked_count;
 	private String	content;
 	private String time;
-	private int commentId;
+	private int comment_id;
 
 	public Integer getId() {
 		return id;
@@ -22,13 +50,7 @@ public class Comment implements Serializable {
 		this.id = id;
 	}
 
-	public String getSongId() {
-		return songId;
-	}
 
-	public void setSongId(String songId) {
-		this.songId = songId;
-	}
 
 	public String getNickname() {
 		return nickname;
@@ -38,13 +60,6 @@ public class Comment implements Serializable {
 		this.nickname = nickname;
 	}
 
-	public Integer getLikedCount() {
-		return likedCount;
-	}
-
-	public void setLikedCount(Integer likedCount) {
-		this.likedCount = likedCount;
-	}
 
 	public String getContent() {
 		return content;
@@ -62,11 +77,5 @@ public class Comment implements Serializable {
 		this.time = time;
 	}
 
-	public int getCommentId() {
-		return commentId;
-	}
 
-	public void setCommentId(int commentId) {
-		this.commentId = commentId;
-	}
 }

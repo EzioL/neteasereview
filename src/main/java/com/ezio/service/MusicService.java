@@ -2,6 +2,8 @@ package com.ezio.service;
 
 import com.ezio.domain.Music;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**

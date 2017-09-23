@@ -1,18 +1,23 @@
 package com.ezio.domain;
 
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import java.io.Serializable;
 
 /**
  * Created by Ezio on 2017/9/23.
  */
+@Document(indexName = "music", type = "form_music")
 public class Music implements Serializable{
 	private Integer	id;
-	private String	songId;
+
+
+	private String	song_id;
 	private String	title;
 	private String	author;
 	private String	album;
 	private String	URL;
-	private int		commentCount;
+	private int		comment_count;
 
 	public Integer getId() {
 		return id;
@@ -20,14 +25,6 @@ public class Music implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getSongId() {
-		return songId;
-	}
-
-	public void setSongId(String songId) {
-		this.songId = songId;
 	}
 
 	public String getTitle() {
@@ -62,11 +59,20 @@ public class Music implements Serializable{
 		this.URL = URL;
 	}
 
-	public int getCommentCount() {
-		return commentCount;
+
+	public String getSong_id() {
+		return song_id;
 	}
 
-	public void setCommentCount(int commentCount) {
-		this.commentCount = commentCount;
+	public void setSong_id(String song_id) {
+		this.song_id = song_id;
+	}
+
+	public int getComment_count() {
+		return comment_count;
+	}
+
+	public void setComment_count(int comment_count) {
+		this.comment_count = comment_count;
 	}
 }
