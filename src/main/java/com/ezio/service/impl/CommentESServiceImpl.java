@@ -1,11 +1,10 @@
 package com.ezio.service.impl;
 
 import com.ezio.domain.Comment;
-import com.ezio.domain.Music;
 import com.ezio.repository.CommentRepository;
 import com.ezio.service.CommentService;
-import com.ezio.service.MusicService;
 
+import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
 import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
@@ -49,7 +48,7 @@ public class CommentESServiceImpl implements CommentService {
 		}
 		LOGGER.info("\n searchCity: searchContent [" + searchContent + "] \n ");
 		Page<Comment> commentPage;
-		if (searchContent !=null){
+		if (!StringUtils.isEmpty(searchContent)){
 			// 构建搜索查询
 			SearchQuery searchQuery = getCommentSearchQuery(pageNumber,pageSize,searchContent);
 			LOGGER.info("\n searchCity: searchContent [" + searchContent + "] \n DSL  = \n " + searchQuery.getQuery().toString());

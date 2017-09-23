@@ -4,6 +4,7 @@ import com.ezio.domain.Music;
 import com.ezio.repository.MusicRepository;
 import com.ezio.service.MusicService;
 
+import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
 import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
@@ -48,7 +49,7 @@ public class MusicESServiceImpl implements MusicService {
 		}
 		LOGGER.info("\n searchCity: searchContent [" + searchContent + "] \n ");
 		Page<Music> musicPage;
-		if (searchContent != null){
+		if ( !StringUtils.isEmpty(searchContent)){
 			// 构建搜索查询
 			SearchQuery searchQuery = getMusicSearchQuery(pageNumber,pageSize,searchContent);
 			LOGGER.info("\n searchCity: searchContent [" + searchContent + "] \n DSL  = \n " + searchQuery.getQuery().toString());

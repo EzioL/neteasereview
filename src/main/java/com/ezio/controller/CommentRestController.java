@@ -21,9 +21,9 @@ public class CommentRestController {
 
 
 	@RequestMapping(value = "/api/comment/search", method = RequestMethod.GET)
-	public List<Comment> searchCity(@RequestParam(value = "pageNumber") Integer pageNumber,
+	public List<Comment> searchCity(@RequestParam(value = "pageNumber",required = false) Integer pageNumber,
 									@RequestParam(value = "pageSize", required = false) Integer pageSize,
-									@RequestParam(value = "searchContent") String searchContent) {
+									@RequestParam(value = "searchContent",required = false) String searchContent) {
 		return commentService.searchComment(pageNumber, pageSize,searchContent);
 	}
 
