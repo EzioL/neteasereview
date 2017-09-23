@@ -1,10 +1,6 @@
 package com.ezio.service;
 
-import com.ezio.domain.Comment;
-
-import org.springframework.data.domain.Page;
-
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Ezio on 2017/9/23.
@@ -19,5 +15,5 @@ public interface CommentService {
 	 * @param searchContent
 	 * @return
 	 */
-	List<Comment> searchComment(Integer pageNumber, Integer pageSize, String searchContent);
+	Map<String, Object> searchComment(Integer pageNumber, Integer pageSize, String searchContent);
 }

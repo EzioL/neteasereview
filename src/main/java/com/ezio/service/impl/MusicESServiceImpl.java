@@ -18,7 +18,8 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Ezio on 2017/9/23.
@@ -37,7 +38,7 @@ public class MusicESServiceImpl implements MusicService {
 
 
 	@Override
-	public List<Music> searchMusic(Integer pageNumber, Integer pageSize, String searchContent) {
+	public Map<String, Object> searchMusic(Integer pageNumber, Integer pageSize, String searchContent) {
 
 
 		// 校验分页参数
@@ -59,7 +60,12 @@ public class MusicESServiceImpl implements MusicService {
 			Pageable pageable = new PageRequest(pageNumber, pageSize);
 			musicPage = musicRepository.findAll(pageable);
 		}
-		return musicPage.getContent();
+		Map<String,Object> map = new HashMap<>();
+		map.put("content",musicPage.getContent());
+		map.put("totalPages",musicPage.getTotalPages());
+		map.put("totalElements",musicPage.getTotalElements());
+		map.put("currentPage",pageNumber);
+		return map;
 	}
 
 	/**

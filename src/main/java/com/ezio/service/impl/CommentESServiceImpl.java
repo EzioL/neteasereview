@@ -18,7 +18,8 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Ezio on 2017/9/23.
@@ -38,7 +39,7 @@ public class CommentESServiceImpl implements CommentService {
 
 
 	@Override
-	public List<Comment> searchComment(Integer pageNumber, Integer pageSize, String searchContent) {
+	public Map<String, Object> searchComment(Integer pageNumber, Integer pageSize, String searchContent) {
 		// 校验分页参数
 		if (pageSize == null || pageSize <= 0) {
 			pageSize = PAGE_SIZE;
@@ -58,7 +59,13 @@ public class CommentESServiceImpl implements CommentService {
 			Pageable pageable = new PageRequest(pageNumber, pageSize);
 			commentPage = commentRepository.findAll(pageable);
 		}
-		return commentPage.getContent();
+		Map<String,Object> map = new HashMap<>();
+		map.put("content",commentPage.getContent());
+		map.put("totalPages",commentPage.getTotalPages());
+		map.put("totalElements",commentPage.getTotalElements());
+		map.put("currentPage",pageNumber);
+		return map;
+
 	}
 
 	private SearchQuery getCommentSearchQuery(Integer pageNumber, Integer pageSize, String searchContent) {
