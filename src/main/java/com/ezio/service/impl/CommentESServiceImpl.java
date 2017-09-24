@@ -28,7 +28,7 @@ import java.util.Map;
 public class CommentESServiceImpl implements CommentService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CommentESServiceImpl.class);
 	/* 分页参数 */
-	final static Integer PAGE_SIZE = 10;          // 每页数量
+	final static Integer PAGE_SIZE = 12;          // 每页数量
 	final static Integer DEFAULT_PAGE_NUMBER = 0; // 默认当前页码
 	/* 搜索模式 */
 	final static String SCORE_MODE_SUM = "sum"; // 权重分求和模式

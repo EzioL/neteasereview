@@ -1,0 +1,385 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <meta name="viewport"
+          content="width=device-width,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="shortcut icon" type="image/x-icon" href="res/ico/ico.png" media="screen">
+    <link href="https://res.springmarker.com/music/mdui.min.css" rel="stylesheet">
+    <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <script type="text/javascript" src="js/jquery.js"
+    ></script>
+    <script type="text/javascript" src="https://res.springmarker.com/music/mdui.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <style>
+        body {
+            font-family: Microsoft Yahei;
+        }
+
+        .searchButton {
+
+        }
+
+        .item_lable {
+            display: none;
+            float: left;
+            margin-left: 15px;
+            padding: 3px 10px 3px 10px;
+            border-radius: 3px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 5px;
+            transform: skewX(165deg);
+        }
+
+        .item_lable_128 {
+            color: #FFF;
+            background-color: #4CAF50;
+        }
+
+        .item_lable_OGG {
+            color: #FFF;
+            background-color: #4CAF50;
+        }
+
+        .item_lable_320 {
+            color: #FFF;
+            background-color: #4CAF50;
+        }
+
+        .item_lable_SQ {
+            color: #FFF;
+            background-color: #9C27B0;
+        }
+
+        .item_lable_MV {
+            color: #FFF;
+            background-color: #212121;
+        }
+
+        .item_lable_IMG {
+            color: #FFF;
+            background-color: #FF9800;
+        }
+
+        .input-keyword {
+            transition: 0.5s;
+            opacity: 0;
+        }
+
+        .input-keyword:focus {
+            opacity: 1;
+        }
+
+        .fixButton {
+            z-index: 10000;
+            display: none;
+        }
+
+        .turnpage_up {
+            margin-left: 10px;
+        }
+
+        .turnpage_down {
+            margin-right: 10px;
+            float: right;
+        }
+
+        .warn {
+            color: #E9E9E9;
+            text-align: center;
+            padding-top: 50px;
+            font-size: 14px;
+        }
+
+        @media only screen and (max-width: 800px) {
+            .input-keyword {
+                display: none;
+            }
+
+            .searchButton {
+                display: none;
+            }
+
+            .mdui-panel-item-header {
+                height: 38px;
+                font-size: 13px;
+            }
+
+            .mobileNone {
+                display: none;
+            }
+
+            .mdui-p-a-2 {
+                padding: 16px 0px 16px 0px !important;
+            }
+
+            .fixButton {
+                display: block;
+            }
+
+            .warn {
+                font-size: 12px;
+            }
+        }
+    </style>
+
+</head>
+<body class="mdui-drawer-body-left mdui-loaded">
+<input id="keyword" type="hidden" value="">
+<input id="type" type="hidden" value="">
+<input id="page" type="hidden" value="">
+<button mdui-dialog="{target: '#dialog'}"
+        class="fixButton mdui-fab mdui-fab-fixed mdui-ripple mdui-color-pink"><i
+        class="mdui-icon material-icons">search</i></button>
+<div class="mdui-toolbar mdui-color-indigo">
+    <span class="mdui-typo-title"> 搜索结果</span>
+    <div class="mdui-toolbar-spacer"></div>
+    <div class="mdui-textfield" style="padding-top:5px">
+        <input id="inputKeyword" class="input-keyword mdui-textfield-input" type="text"
+               placeholder="输入搜索关键词">
+    </div>
+    <a id="search" onclick="showInput();" style="margin-right: 20px;"
+       class="searchButton mdui-btn mdui-btn-icon "><i class="mdui-icon material-icons">
+        </i></a>
+</div>
+
+
+<!--<div id="drawer" style="background-color: #e9e9e9; " class=" mdui-drawer">-->
+    <!--<div style="width: 100%;height: 100%;overflow: hidden;background-color: #424343">-->
+        <!--<img src="../static/pic/music-background.png" width="100%" style="margin-top: 100px ">-->
+        <!---->
+<!--</div>-->
+
+<div id="drawer" style="background-color: #e9e9e9; " class=" mdui-drawer">
+    <div style="width: 100%;height: 100%;overflow: hidden;background-color: #424343">
+        <img src="pic/music-background.png" width="100%" style="margin-top: 100px ">
+    </div>
+</div>
+<div class="mdui-container" style="min-height: 800px">
+    <div class="mdui-row" style="max-width: 1200px;">
+        <div class="mdui-col-xs-12 mdui-center">
+            <div class="mdui-tab mdui-tab-full-width" id="tab" mdui-tab="">
+                <a id="tab1" href="#example1-tab1" class="mdui-ripple mdui-tab-active">音乐</a>
+                <a id="tab2" href="#example1-tab2" class="mdui-ripple">评论</a>
+            </div>
+            <div id="example1-tab1" class="mdui-p-a-2">
+                <div id="tab1-panel" class="mdui-panel" mdui-panel="{accordion: true}">
+
+                </div>
+            </div>
+            <div id="example1-tab2" class="mdui-p-a-2" style="display: none;">
+                <div id="tab2-panel" class="mdui-panel" mdui-panel="{accordion: true}">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div style="display: none">
+    <!-- 单个item-->
+    <div id="singleMusicItem" class="mdui-panel-item">
+        <div class="mdui-panel-item-header">
+            <div class="Stitle mdui-panel-item-title">歌曲</div>
+            <div class="Ssinger mdui-panel-item-summary">歌手</div>
+            <div class="Salbum mdui-panel-item-summary">专辑</div>
+            <div class="Stime mdui-panel-item-summary mobileNone" style="text-align:right;">地址</div>
+            <i class="mdui-panel-item-arrow mdui-icon material-icons"></i>
+        </div>
+        <div class="mdui-panel-item-body">
+            <!--<a href="" class="item_lable item_lable_128" target="_blank">128</a>-->
+            <!--<a href="" class="item_lable item_lable_OGG" target="_blank">OGG</a>-->
+            <!--<a href="" class="item_lable item_lable_320" target="_blank">320</a>-->
+            <!--<a href="" class="item_lable item_lable_SQ" target="_blank">SQ</a>-->
+            <!--<a href="" class="item_lable item_lable_MV" target="_blank" rel="noreferrer">MV</a>-->
+            <!--<a href="" class="item_lable item_lable_IMG" target="_blank">IMG</a>-->
+        </div>
+    </div>
+    <div id="singleCommentItem" class="mdui-panel-item">
+        <div class="mdui-panel-item-header">
+            <div class="Stitle mdui-panel-item-title">用户</div>
+            <div class="Ssinger mdui-panel-item-summary">评论</div>
+            <div class="Stime mdui-panel-item-summary mobileNone" style="text-align:right;">点赞</div>
+            <i class="mdui-panel-item-arrow mdui-icon material-icons"></i>
+        </div>
+        <div class="mdui-panel-item-body">
+            <!--<a href="" class="item_lable item_lable_128" target="_blank">128</a>-->
+            <!--<a href="" class="item_lable item_lable_OGG" target="_blank">OGG</a>-->
+            <!--<a href="" class="item_lable item_lable_320" target="_blank">320</a>-->
+            <!--<a href="" class="item_lable item_lable_SQ" target="_blank">SQ</a>-->
+            <!--<a href="" class="item_lable item_lable_MV" target="_blank" rel="noreferrer">MV</a>-->
+            <!--<a href="" class="item_lable item_lable_IMG" target="_blank">IMG</a>-->
+        </div>
+    </div>
+    <!-- 单个item-->
+
+    <div id="turnpage" style="margin-top: 15px;">
+        <button onclick=""
+                class="mdui-color-indigo turnpage_up mdui-btn-raised mdui-btn mdui-btn-icon"><i
+                class="mdui-icon material-icons">first_page</i></button>
+        <div class="mdui-chip"  style="margin-left: 40%;">
+            <span class="mdui-chip-title Ssum"></span>
+        </div>
+        <button onclick=""
+                class="mdui-color-indigo turnpage_down mdui-btn-raised mdui-btn mdui-btn-icon">
+            <i class="mdui-icon material-icons">last_page</i></button>
+    </div>
+</div>
+
+<!--对话框-->
+
+<footer class="mdui-color-indigo-800" style=" width: 100%;height: 100px;bottom:0px;left:0px;">
+    <div class="warn">
+        本站内容从互联网上收集而来，内容和本站无关
+    </div>
+    <div style="text-align: center;padding-top: 10px;font-size: 12px;">
+        <a style="color: #e9e9e9;text-decoration: none" href="http://www.miitbeian.gov.cn/"
+           target="_blank">
+            2016 Cao. All rights reserved.备案号：鲁ICP备16035555号-1
+        </a>
+
+    </div>
+</footer>
+<script>
+    $(function () {
+        getMusic(0,12,null);
+        getComment(0,12,null);
+        $('#inputKeyword').bind('keyup', function (event) {
+            if (event.keyCode == "13") {
+                //回车执行查询
+                var keyword = $("#inputKeyword").val();
+                if (keyword == null || keyword == undefined || keyword == "") {
+                    mdui.snackbar({message: '未输入关键词！'});
+                } else {
+                    getMusic(0,12,keyword);
+                    getComment(0,12,keyword);
+                }
+
+            }
+        });
+    });
+    function showInput() {
+        $("#inputKeyword").focus();
+    }
+
+</script>
+
+
+<div class="mdui-tooltip mdui-tooltip-open"
+     id="mdui-tooltip-mdui-tooltip-a5c927d8-bf1f-7700-6426-3f3e68e9f1cf"
+     style="transform-origin: center top 0px; top: 28px; left: 1475.2px; margin-left: -44px; margin-top: 38px;">
+    搜索按钮在这
+</div>
+
+
+<script>
+    function getMusic(pageNumber, pageSize, searchContent) {
+        var page = pageNumber;
+        var size = pageSize;
+        var search = searchContent;
+        if (search == null || search == 'null')search =null;
+
+        $.ajax({
+            url: "http://47.94.99.113:8080/neteasereview/api/music/search",
+            method: "get",
+            data: {
+                pageSize: size,
+                pageNumber: page,
+                searchContent: search
+            },
+            success: function (data) {
+
+                var list = data.content;
+                $("#tab1-panel").empty();
+                console.log(list);
+                $("#tab1-panel").append($('#singleMusicItem').clone());
+                for (var i = 0; i < list.length; i++) {
+                    var musci = list[i];
+                    var copyHtml = $('#singleMusicItem').clone();
+                    copyHtml.attr("id", "item" + (i + 1));
+                    copyHtml.find(".Stitle").html(musci.title);
+                    copyHtml.find('.Ssinger').html(musci.author);
+                    copyHtml.find('.Salbum').html(musci.album);
+                    copyHtml.find('.Stime').html('<a href="'+musci.url+'"  target="_Blank">'+musci.url+'</a>');
+
+                    $("#tab1-panel").append(copyHtml);
+                }
+                var turnpage = $('#turnpage').clone();
+                turnpage.find('.Ssum').html('共 '+data.totalElements+' 首');
+                if ((Number(page) - 1) >= 0) {
+                    turnpage.find(".turnpage_up").attr("onclick", "getMusic('" + ( Number(page) - 1) + "','" + size + "','" + search + "')");
+                } else {
+                    turnpage.find(".turnpage_up").attr("onclick", "showNoPage()");
+                }
+
+                turnpage.find(".turnpage_down").attr("onclick", "getMusic('" + ( Number(page) + 1) + "','" + size + "','" + search + "')");
+                $("#tab1-panel").append(turnpage);
+                $('body,html').animate({'scrollTop': 0}, 200);
+
+
+            }
+        })
+    }
+
+    function getComment(pageNumber, pageSize, searchContent) {
+        var page = pageNumber;
+        var size = pageSize;
+        var search = searchContent;
+        if (search == null || search == 'null')search =null;
+
+        $.ajax({
+            url: "http://47.94.99.113:8080/neteasereview/api/comment/search",
+            method: "get",
+            data: {
+                pageSize: size,
+                pageNumber: page,
+                searchContent: search
+            },
+            success: function (data) {
+
+                var list = data.content;
+                $("#tab2-panel").empty();
+              //  console.log(list);
+                $("#tab2-panel").append($('#singleCommentItem').clone());
+                for (var i = 0; i < list.length; i++) {
+                    var comment = list[i];
+                    var copyHtml = $('#singleCommentItem').clone();
+                    copyHtml.attr("id", "item" + (i + 1));
+                    copyHtml.find(".Stitle").html(comment.nickname);
+                    copyHtml.find('.Ssinger').html(comment.content);
+                    copyHtml.find('.Salbum').html("");
+                    copyHtml.find('.Stime').html(comment.liked_count);
+
+                    $("#tab2-panel").append(copyHtml);
+                }
+                var turnpage = $('#turnpage').clone();
+                turnpage.find('.Ssum').html('共 '+data.totalElements+' 条');
+                if ((Number(page) - 1) >= 0) {
+                    turnpage.find(".turnpage_up").attr("onclick", "getComment('" + ( Number(page) - 1) + "','" + size + "','" + search + "')");
+                } else {
+                    turnpage.find(".turnpage_up").attr("onclick", "showNoPage()");
+                }
+
+                turnpage.find(".turnpage_down").attr("onclick", "getComment('" + ( Number(page) + 1) + "','" + size + "','" + search + "')");
+                $("#tab2-panel").append(turnpage);
+
+                $('body,html').animate({'scrollTop': 0}, 200);
+
+
+            }
+        });
+
+        function showNoPage() {
+            mdui.snackbar({message: '没有上一页了！'});
+        }
+    }
+</script>
+</body>
+</html>
