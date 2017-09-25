@@ -8,6 +8,8 @@ import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
 import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
+import org.elasticsearch.search.sort.SortBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +54,7 @@ public class CommentESServiceImpl implements CommentService {
 		if (!StringUtils.isEmpty(searchContent)){
 			// 构建搜索查询
 			SearchQuery searchQuery = getCommentSearchQuery(pageNumber,pageSize,searchContent);
-			LOGGER.info("\n searchCity: searchContent [" + searchContent + "] \n DSL  = \n " + searchQuery.getQuery().toString());
+			LOGGER.info("\n searchComment: searchContent [" + searchContent + "] \n DSL  = \n " + searchQuery.getQuery().toString());
 			commentPage = commentRepository.search(searchQuery);
 
 		}else {

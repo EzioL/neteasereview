@@ -53,7 +53,7 @@ public class MusicESServiceImpl implements MusicService {
 		if ( !StringUtils.isEmpty(searchContent)){
 			// 构建搜索查询
 			SearchQuery searchQuery = getMusicSearchQuery(pageNumber,pageSize,searchContent);
-			LOGGER.info("\n searchCity: searchContent [" + searchContent + "] \n DSL  = \n " + searchQuery.getQuery().toString());
+			LOGGER.info("\n searchMusic: searchContent [" + searchContent + "] \n DSL  = \n " + searchQuery.getQuery().toString());
 			musicPage = musicRepository.search(searchQuery);
 
 		}else {
